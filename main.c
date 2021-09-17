@@ -133,25 +133,22 @@ int main(void)
   int colour_number = 0;														//Init the colour_number variable
   while (1)
   {
-	  if (HAL_GPIO_ReadPin(Blue_Button_GPIO_Port, Blue_Button_Pin) == 1)		//Read the GPIO pin value and compare with 1
-	  {
-		  colour_number ++;														//Increment the colour_number
-		  if (colour_number > 4)												//Make sure colour_number stays within range 1-4
-		  {
-			  colour_number = 1;
-		  }
-		  lights(colour_number);												//call the lights function
-	  }
 
-	  if (HAL_GPIO_ReadPin(Blue_Button_GPIO_Port, Blue_Button_Pin) == 0)		//Read Blue Button and compare to 0
-	  {
-		  colour_number --;														//Decrement the colour_number
-		  if (colour_number < 1)												//Keep the colour_number within range 1-4
-		  {
-			  colour_number = 4;
-		  }
-		  lights(colour_number);												//Call the lights function
-	  }
+	  // Use the C ternary operator ?
+	  (HAL_GPIO_ReadPin(Blue_Button_GPIO_Port, Blue_Button_Pin) == 1) ? colour_number++ : colour_number--;
+
+	  if (colour_number > 4)												//Make sure colour_number stays within range 1-4
+	  	 {
+		  	  colour_number = 1;
+	  	 }
+
+	  if (colour_number < 1)												//Make sure colour_number stays within range 1-4
+	  	 {
+		  	  colour_number = 4;
+	  	 }
+
+	  lights(colour_number);												//Call the Lights function
+
   }
 
 
